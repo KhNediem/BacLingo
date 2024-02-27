@@ -4,6 +4,9 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import { styled, useTheme } from '@mui/material/styles'
+import { Stack } from "@mui/material";
+import {useState, useEffect} from 'react'
+import axios from "axios";
 
 // Styled component for the triangle shaped background image
 const TriangleImg = styled('img')({
@@ -21,6 +24,35 @@ const TrophyImg = styled('img')({
   position: 'absolute'
 })
 
+const NbrUsersComponent = (props) => {
+  const { sx } = props;
+  const [nbrusers, setnbrusers] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/user", { withCredentials: true });
+        setnbrusers(response.data);
+        console.log({nbrusers});
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle errors gracefully, e.g., show an error message to the user
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <Stack spacing={1}>
+      <Typography variant="h4">
+        {nbrusers && nbrusers.map((user) => <span key={user.UserID}>{user.NumberOfUsers}</span>)}
+      </Typography>
+      
+    </Stack>
+  );
+};
+
 const Trophy = () => {
   // ** Hook
   const theme = useTheme()
@@ -29,13 +61,11 @@ const Trophy = () => {
   return (
     <Card sx={{ position: 'relative' }}>
       <CardContent>
-        <Typography variant='h6'>Total Users:</Typography>
-        <Typography variant='body2' sx={{ letterSpacing: '0.25px' }}>
-          ...
-        </Typography>
         <Typography variant='h5' sx={{ my: 4, color: 'primary.main' }}>
           NumberOfUsers
+          <NbrUsersComponent />
         </Typography>
+        
         <Button size='small' variant='contained'>
           View Users
         </Button>

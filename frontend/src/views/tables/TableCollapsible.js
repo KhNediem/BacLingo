@@ -57,7 +57,7 @@ const Row = props => {
           </IconButton>
         </TableCell>
         <TableCell component='th' scope='row'>
-          {row.name}
+          
         </TableCell>
         <TableCell align='right'>{row.calories}</TableCell>
         <TableCell align='right'>{row.fat}</TableCell>
