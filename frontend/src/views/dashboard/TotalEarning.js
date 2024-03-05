@@ -16,7 +16,7 @@ const data = [
   {
     progress: 75,
     imgHeight: 20,
-    title: 'User 1',
+    title: 'Emma',
     color: 'primary',
     amount: '$20',
     subtitle: 'Subscription',
@@ -26,17 +26,17 @@ const data = [
     progress: 50,
     color: 'info',
     imgHeight: 27,
-    title: 'Bitbank',
-    amount: '$20',
+    title: 'Alex',
+    amount: '$10',
     subtitle: 'Subscription',
     imgSrc: '/images/cards/logo-bitbank.png'
   },
   {
     progress: 20,
     imgHeight: 20,
-    title: 'Aviato',
+    title: 'Emily',
     color: 'secondary',
-    amount: '$10',
+    amount: '$5',
     subtitle: 'Subscription',
     imgSrc: '/images/cards/logo-aviato.png'
   }
@@ -57,7 +57,7 @@ const TotalEarning = () => {
       <CardContent sx={{ pt: theme => `${theme.spacing(2.25)} !important` }}>
         <Box sx={{ mb: 1.5, display: 'flex', alignItems: 'center' }}>
           <Typography variant='h4' sx={{ fontWeight: 600, fontSize: '2.125rem !important' }}>
-            $24,895
+            $60
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', color: 'success.main' }}>
             <MenuUp sx={{ fontSize: '1.875rem', verticalAlign: 'middle' }} />
@@ -67,9 +67,7 @@ const TotalEarning = () => {
           </Box>
         </Box>
 
-        <Typography component='p' variant='caption' sx={{ mb: 10 }}>
-          Compared to $84,325 last year
-        </Typography>
+       
 
         {data.map((item, index) => {
           return (

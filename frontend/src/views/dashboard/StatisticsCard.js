@@ -7,6 +7,10 @@ import CardHeader from '@mui/material/CardHeader'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
+import { Stack } from "@mui/material";
+import {useState, useEffect} from 'react'
+import axios from "axios";
+
 
 // ** Icons Imports
 import TrendingUp from 'mdi-material-ui/TrendingUp'
@@ -42,6 +46,35 @@ const salesData = [
   }
 ]
 
+const NbrUsersComponent = (props) => {
+  const { sx } = props;
+  const [nbrusers, setnbrusers] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/user", { withCredentials: true });
+        setnbrusers(response.data);
+        console.log({nbrusers});
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle errors gracefully, e.g., show an error message to the user
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <Stack spacing={1}>
+      <Typography variant="h4">
+        {nbrusers && nbrusers.map((user) => <span key={user.UserID}>{user.NumberOfUsers}</span>)}
+      </Typography>
+      
+    </Stack>
+  );
+};
+
 const renderStats = () => {
   return salesData.map((item, index) => (
     <Grid item xs={12} sm={3} key={index}>
@@ -61,7 +94,7 @@ const renderStats = () => {
         </Avatar>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Typography variant='caption'>{item.title}</Typography>
-          <Typography variant='h6'>{item.stats}</Typography>
+          <Typography variant='h6'><NbrUsersComponent/></Typography>
         </Box>
       </Box>
     </Grid>
